@@ -1,5 +1,6 @@
 package com.dot.freelance.controller;
 
+import com.dot.freelance.domain.Account;
 import com.dot.freelance.dto.AccountDto;
 import com.dot.freelance.exception.BadRequestException;
 import com.dot.freelance.exception.NotFoundException;
@@ -17,10 +18,10 @@ public class AccountController extends BaseController{
     private AccountService accountService;
 
     @PostMapping("")
-    public Object create(@Valid @RequestBody AccountDto accountDto){
+    public Object create(@Valid @RequestBody Account account){
         try {
-            accountDto.setIsDisabled(false);
-            accountService.create(accountDto);
+            account.setIsDisabled(false);
+            accountService.create(account);
             return buildResponseDataCreated();
         } catch (NotFoundException e) {
             return buildResponseNotFound(e.getMessage());
@@ -34,6 +35,17 @@ public class AccountController extends BaseController{
     public Object getById(@PathVariable("id") String id) {
         try {
             return buildResponseGeneralSuccess(accountService.getById(id));
+        } catch (NotFoundException e) {
+            return buildResponseNotFound(e.getMessage());
+        } catch (Exception e) {
+            return buildResponseGeneralError(e.getMessage());
+        }
+    }
+
+    @GetMapping("")
+    public Object getAll() {
+        try {
+            return buildResponseGeneralSuccess(accountService.getAllAccount());
         } catch (NotFoundException e) {
             return buildResponseNotFound(e.getMessage());
         } catch (Exception e) {

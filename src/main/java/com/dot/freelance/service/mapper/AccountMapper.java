@@ -2,11 +2,10 @@ package com.dot.freelance.service.mapper;
 
 import com.dot.freelance.domain.Account;
 import com.dot.freelance.dto.AccountDto;
-import org.mapstruct.Mapper;
-import org.mapstruct.Named;
-import org.mapstruct.NullValueCheckStrategy;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring",
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
@@ -20,4 +19,7 @@ public interface AccountMapper {
 
     @Named("toAccount")
     Account toAccount(AccountDto accountDto);
+
+    @IterableMapping(qualifiedByName = "toAccountDto")
+    List<AccountDto> toListAccountDto(List<Account> accountList);
 }

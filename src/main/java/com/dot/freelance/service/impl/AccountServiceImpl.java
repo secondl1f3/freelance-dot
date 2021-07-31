@@ -1,6 +1,7 @@
 package com.dot.freelance.service.impl;
 
 import com.dot.freelance.domain.Account;
+import com.dot.freelance.domain.Address;
 import com.dot.freelance.dto.AccountDto;
 import com.dot.freelance.exception.NotFoundException;
 import com.dot.freelance.repository.AccountRepository;
@@ -13,6 +14,8 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @CacheConfig(cacheNames = "account")
 @Service
@@ -29,8 +32,8 @@ public class AccountServiceImpl implements AccountService {
             @CacheEvict(value = "accountcache", key = "#account.id")
     })
     @Override
-    public void create(AccountDto accountDto) {
-        Account account = accountMapper.toAccount(accountDto);
+    public void create(Account account) {
+//        Account account = accountMapper.toAccount(accountDto);
         accountRepository.save(account);
         log.info("Account created successfully");
     }
@@ -41,5 +44,14 @@ public class AccountServiceImpl implements AccountService {
         Account account =  accountRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Address id {0}".replace("{0}", id)));
         return accountMapper.toAccountDto(account);
+    }
+
+    @Cacheable(value = "allaccountcache")
+    @Override
+    public List<AccountDto> getAllAccount() {
+        List<Account> accounts = accountRepository.findAll();
+        if (accounts == null || accounts.isEmpty())
+            return null;
+        return accountMapper.toListAccountDto(accounts);
     }
 }
