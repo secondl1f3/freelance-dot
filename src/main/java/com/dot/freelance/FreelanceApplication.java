@@ -9,7 +9,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableFeignClients
 @EnableCaching
-@EnableAutoConfiguration
 public class FreelanceApplication {
 
 	public static void main(String[] args) {

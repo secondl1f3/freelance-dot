@@ -17,4 +17,7 @@ public interface AccountMapper {
 
     @Named("toAccountDto")
     AccountDto toAccountDto(Account account);
+
+    @Named("toAccount")
+    Account toAccount(AccountDto accountDto);
 }

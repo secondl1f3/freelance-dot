@@ -1,6 +1,5 @@
 package com.dot.freelance.service;
 
-import com.dot.freelance.domain.Account;
 import com.dot.freelance.dto.AddressDto;
 import com.dot.freelance.dto.AddressType;
 
@@ -15,5 +14,7 @@ public interface AddressService {
     AddressDto getById(String id);
 
     List<AddressDto> getAddressAccount(String accountId, AddressType addressType);
+
+    List<AddressDto> getAllAddress();
 
 }

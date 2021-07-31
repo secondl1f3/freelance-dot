@@ -21,7 +21,7 @@ public class AddressController extends BaseController{
     private Object create(@Valid @RequestBody AddressDto addressDto){
         try {
             addressService.create(addressDto);
-            return buildResponseGeneralSuccess();
+            return buildResponseDataCreated();
         } catch (NotFoundException e) {
             return buildResponseNotFound(e.getMessage());
         } catch (BadRequestException e) {
@@ -35,6 +35,17 @@ public class AddressController extends BaseController{
     public Object getById(@PathVariable("id") String id) {
         try {
             return buildResponseGeneralSuccess(addressService.getById(id));
+        } catch (NotFoundException e) {
+            return buildResponseNotFound(e.getMessage());
+        } catch (Exception e) {
+            return buildResponseGeneralError(e.getMessage());
+        }
+    }
+
+    @GetMapping("")
+    public Object getAll() {
+        try {
+            return buildResponseGeneralSuccess(addressService.getAllAddress());
         } catch (NotFoundException e) {
             return buildResponseNotFound(e.getMessage());
         } catch (Exception e) {

@@ -1,6 +1,7 @@
 package com.dot.freelance.service.mapper;
 
 import com.dot.freelance.domain.Account;
+import com.dot.freelance.domain.Account.AccountBuilder;
 import com.dot.freelance.dto.AccountDto;
 import com.dot.freelance.dto.AccountDto.AccountDtoBuilder;
 import javax.annotation.Generated;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2021-07-31T03:07:22+0700",
+    date = "2021-07-31T09:28:06+0700",
     comments = "version: 1.3.0.Final, compiler: javac, environment: Java 1.8.0_231 (Oracle Corporation)"
 )
 @Component
@@ -22,6 +23,9 @@ public class AccountMapperImpl implements AccountMapper {
 
         AccountDtoBuilder accountDto = AccountDto.builder();
 
+        if ( account.getId() != null ) {
+            accountDto.id( account.getId() );
+        }
         if ( account.getUsername() != null ) {
             accountDto.username( account.getUsername() );
         }
@@ -42,5 +46,38 @@ public class AccountMapperImpl implements AccountMapper {
         }
 
         return accountDto.build();
+    }
+
+    @Override
+    public Account toAccount(AccountDto accountDto) {
+        if ( accountDto == null ) {
+            return null;
+        }
+
+        AccountBuilder account = Account.builder();
+
+        if ( accountDto.getId() != null ) {
+            account.id( accountDto.getId() );
+        }
+        if ( accountDto.getName() != null ) {
+            account.name( accountDto.getName() );
+        }
+        if ( accountDto.getGender() != null ) {
+            account.gender( accountDto.getGender() );
+        }
+        if ( accountDto.getMobile() != null ) {
+            account.mobile( accountDto.getMobile() );
+        }
+        if ( accountDto.getEmail() != null ) {
+            account.email( accountDto.getEmail() );
+        }
+        if ( accountDto.getUsername() != null ) {
+            account.username( accountDto.getUsername() );
+        }
+        if ( accountDto.getIsDisabled() != null ) {
+            account.isDisabled( accountDto.getIsDisabled() );
+        }
+
+        return account.build();
     }
 }

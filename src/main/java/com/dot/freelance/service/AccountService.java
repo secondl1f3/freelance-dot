@@ -5,5 +5,7 @@ import com.dot.freelance.dto.AddressDto;
 
 public interface AccountService {
 
+    void create(AccountDto accountDto);
+
     AccountDto getById(String id);
 }
